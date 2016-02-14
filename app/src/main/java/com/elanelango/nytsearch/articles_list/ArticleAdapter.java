@@ -32,8 +32,12 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
 
     //ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.ivThumbnail) ImageView ivThumbnail;
-        @Bind(R.id.tvHeadline) TextView tvHeadline;
+        @Bind(R.id.ivThumbnail)
+        ImageView ivThumbnail;
+
+        @Bind(R.id.tvHeadline)
+        TextView tvHeadline;
+
         Context context;
         Article article;
 
@@ -92,10 +96,15 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
     }
 
     public void addAll(ArrayList<Article> newArticles) {
-        for (Article article: newArticles) {
+        for (Article article : newArticles) {
             articles.add(article);
             notifyItemInserted(articles.size() - 1);
         }
-        
+    }
+
+    public void clear() {
+        int size = articles.size();
+        articles.clear();
+        notifyItemRangeRemoved(0, size);
     }
 }

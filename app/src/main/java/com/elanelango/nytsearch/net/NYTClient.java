@@ -66,6 +66,11 @@ public class NYTClient {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 throwable.printStackTrace();
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                throwable.printStackTrace();
+            }
         });
     }
 }

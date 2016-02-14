@@ -1,11 +1,16 @@
 package com.elanelango.nytsearch.articles_list;
 
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.elanelango.nytsearch.R;
 import com.elanelango.nytsearch.models.Article;
@@ -19,8 +24,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SearchActivity extends AppCompatActivity implements NYTClient.ArticlesHandler {
-    @Bind(R.id.etQuery)
-    EditText etQuery;
 
     @Bind(R.id.rvArticles)
     RecyclerView rvArticles;
@@ -28,13 +31,20 @@ public class SearchActivity extends AppCompatActivity implements NYTClient.Artic
     ArrayList<Article> articles;
     ArticleAdapter adapter;
 
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+
     NYTClient client;
+
+    String searchQuery = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
 
         client = new NYTClient(this);
         articles = new ArrayList<>();
@@ -50,20 +60,50 @@ public class SearchActivity extends AppCompatActivity implements NYTClient.Artic
         rvArticles.addOnScrollListener(new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-                String query = etQuery.getText().toString();
-                client.getArticles(query, page, SearchActivity.this);
+                client.getArticles(searchQuery, page, SearchActivity.this);
             }
         });
     }
 
-    @OnClick(R.id.btnSearch)
-    public void onArticleSearch(View view) {
-        String query = etQuery.getText().toString();
-        client.getArticles(query, 0, SearchActivity.this);
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_search, menu);
+
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // perform query here
+
+                // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
+                // see https://code.google.com/p/android/issues/detail?id=24599
+                searchQuery = query;
+                searchView.clearFocus();
+                searchItem.collapseActionView();
+                invalidateOptionsMenu();
+                toolbar.setTitle(query);
+                adapter.clear();
+                client.getArticles(searchQuery, 0, SearchActivity.this);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public void onNewArticles(ArrayList<Article> articles) {
         adapter.addAll(articles);
+    }
+
+    @OnClick(R.id.filterDate)
+    public void pickDate(LinearLayout layout) {
+
     }
 }
