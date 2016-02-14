@@ -1,18 +1,16 @@
 package com.elanelango.nytsearch.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Toast;
 
 import com.elanelango.nytsearch.R;
-import com.elanelango.nytsearch.adapters.ArticleArrayAdapter;
+import com.elanelango.nytsearch.adapters.ArticleAdapter;
 import com.elanelango.nytsearch.models.Article;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -24,40 +22,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.BindString;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cz.msebera.android.httpclient.Header;
 
 public class SearchActivity extends AppCompatActivity {
 
-    EditText etQuery;
-    GridView gvResults;
-    Button btnSearch;
+    @Bind(R.id.etQuery) EditText etQuery;
+    @Bind(R.id.rvArticles) RecyclerView rvArticles;
+
+    @BindString(R.string.client_key) String clientKey;
 
     ArrayList<Article> articles;
-    ArticleArrayAdapter adapter;
+    ArticleAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        etQuery = (EditText) findViewById(R.id.etQuery);
-        gvResults = (GridView) findViewById(R.id.gvResults);
-        btnSearch = (Button) findViewById(R.id.btnSearch);
-        articles = new ArrayList<>();
-        adapter = new ArticleArrayAdapter(SearchActivity.this, articles);
-        gvResults.setAdapter(adapter);
+        ButterKnife.bind(this);
 
-        gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i = new Intent(getApplicationContext(), ArticleActivity.class);
-                Article article = articles.get(position);
-                i.putExtra("article", article);
-                startActivity(i);
-            }
-        });
+        articles = new ArrayList<>();
+        adapter = new ArticleAdapter(articles);
+        rvArticles.setAdapter(adapter);
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        rvArticles.setLayoutManager(gridLayoutManager);
     }
 
+    @OnClick(R.id.btnSearch)
     public void onArticleSearch(View view) {
         String query = etQuery.getText().toString();
 
@@ -65,7 +60,7 @@ public class SearchActivity extends AppCompatActivity {
         String url = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
 
         RequestParams params = new RequestParams();
-        params.put("api-key", getString(R.string.client_key));
+        params.put("api-key", clientKey);
         params.put("page", 0);
         params.put("q", query);
 

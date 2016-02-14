@@ -12,31 +12,31 @@ import java.util.ArrayList;
  */
 public class Article implements Serializable {
     String webUrl;
-    String headLine;
-    String thumbNail;
+    String headline;
+    String thumbnail;
 
     public String getWebUrl() {
         return webUrl;
     }
 
-    public String getHeadLine() {
-        return headLine;
+    public String getHeadline() {
+        return headline;
     }
 
-    public String getThumbNail() {
-        return thumbNail;
+    public String getThumbnail() {
+        return thumbnail;
     }
 
     public Article(JSONObject jsonObject) {
         try {
             this.webUrl = jsonObject.getString("web_url");
-            this.headLine = jsonObject.getJSONObject("headline").getString("main");
+            this.headline = jsonObject.getJSONObject("headline").getString("main");
             JSONArray multimedia = jsonObject.getJSONArray("multimedia");
             if (multimedia.length() > 0) {
                 JSONObject multimediaJson = multimedia.getJSONObject(0);
-                this.thumbNail = "http://www.nytimes.com/" + multimediaJson.getString("url");
+                this.thumbnail = "http://www.nytimes.com/" + multimediaJson.getString("url");
             } else {
-                this.thumbNail = "";
+                this.thumbnail = "";
             }
 
         } catch (JSONException e) {
