@@ -1,4 +1,4 @@
-package com.elanelango.nytsearch.activities;
+package com.elanelango.nytsearch.articles_list;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,11 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.elanelango.nytsearch.R;
-import com.elanelango.nytsearch.adapters.ArticleAdapter;
 import com.elanelango.nytsearch.models.Article;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -48,7 +46,10 @@ public class SearchActivity extends AppCompatActivity {
         articles = new ArrayList<>();
         adapter = new ArticleAdapter(articles);
         rvArticles.setAdapter(adapter);
-        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL);
+        rvArticles.setHasFixedSize(true);
+        rvArticles.addItemDecoration(new ItemSpaceDecoration(10));
+        // rvArticles.addItemDecoration(new DividerItemDecoration(this));
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         rvArticles.setLayoutManager(gridLayoutManager);
     }
 

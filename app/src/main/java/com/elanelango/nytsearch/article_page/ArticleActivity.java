@@ -1,11 +1,8 @@
-package com.elanelango.nytsearch.activities;
+package com.elanelango.nytsearch.article_page;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 

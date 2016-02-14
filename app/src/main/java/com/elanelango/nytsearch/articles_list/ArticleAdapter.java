@@ -1,7 +1,8 @@
-package com.elanelango.nytsearch.adapters;
+package com.elanelango.nytsearch.articles_list;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -11,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.elanelango.nytsearch.R;
-import com.elanelango.nytsearch.activities.ArticleActivity;
+import com.elanelango.nytsearch.article_page.ArticleActivity;
 import com.elanelango.nytsearch.models.Article;
 import com.squareup.picasso.Picasso;
 
