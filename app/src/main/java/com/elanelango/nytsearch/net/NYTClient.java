@@ -1,8 +1,11 @@
 package com.elanelango.nytsearch.net;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.elanelango.nytsearch.R;
 import com.elanelango.nytsearch.articles_list.SearchActivity;
@@ -15,6 +18,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,9 +40,10 @@ public class NYTClient {
     private static final String SEARCH_URL = "http://api.nytimes.com/svc/search/v2/articlesearch.json";
     private AsyncHttpClient client;
     private static String clientKey;
-    private ArrayList<Article> resArticles = new ArrayList<>();
+    private Context context;
 
     public NYTClient(Context context) {
+        this.context = context;
         this.client = new AsyncHttpClient();
         clientKey = context.getString(R.string.client_key);
     }
@@ -79,7 +84,11 @@ public class NYTClient {
         }
         Log.d("DEBUG", params.toString());
 
-        resArticles.clear();
+        if (!isNetworkAvailable() || !isOnline()) {
+            Toast.makeText(context, "Cannot retrieve articles. Please check your Internet connection.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         client.get(SEARCH_URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -92,7 +101,6 @@ public class NYTClient {
 //                ArrayList<Article> articles = new ArrayList<Article>();
 //                articles.add(article);
 //                    articleHandler.onNewArticles(articles);
-                    Log.d("DEBUG", resArticles.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -110,4 +118,23 @@ public class NYTClient {
             }
         });
     }
+
+    private Boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
+    }
+
+    public boolean isOnline() {
+        Runtime runtime = Runtime.getRuntime();
+        try {
+            Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
+            int     exitValue = ipProcess.waitFor();
+            return (exitValue == 0);
+        } catch (IOException e)          { e.printStackTrace(); }
+        catch (InterruptedException e) { e.printStackTrace(); }
+        return false;
+    }
+
 }
