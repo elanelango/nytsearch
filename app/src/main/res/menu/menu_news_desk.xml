@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/mnuArts"
+            android:title="@string/arts" />
+        <item
+            android:id="@+id/mnuFashion"
+            android:title="@string/fashion" />
+        <item
+            android:id="@+id/mnuSports"
+            android:title="@string/sports" />
+    </group>
+</menu>

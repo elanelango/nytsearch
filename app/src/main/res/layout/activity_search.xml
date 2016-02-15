@@ -56,10 +56,11 @@
                     android:src="@drawable/ic_begin_date" />
 
                 <TextView
+                    android:id="@+id/tvBeginDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="09/18/1851" />
+                    android:text="BEGIN DATE" />
             </LinearLayout>
 
             <LinearLayout
@@ -75,6 +76,7 @@
                     android:src="@drawable/ic_sort" />
 
                 <TextView
+                    android:id="@+id/tvSortOrder"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

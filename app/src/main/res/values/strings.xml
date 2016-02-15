@@ -3,4 +3,10 @@
     <string name="hint">Enter search query</string>
     <string name="search">Search</string>
     <string name="title_activity_article">ArticleActivity</string>
+    <string name="relevant">Relevant</string>
+    <string name="oldest">Oldest</string>
+    <string name="newest">Newest</string>
+    <string name="arts">Arts</string>
+    <string name="fashion">Fashion &amp; Style</string>
+    <string name="sports">Sports</string>
 </resources>
