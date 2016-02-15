@@ -40,6 +40,7 @@ The following **additional** features are implemented:
 * [X] Used CardView for the article items in the StaggeredGridLayout
 * [X] Used Toolbar instead of ActionBar with custom icons for filtering.
   * [X] DataPicker dialog for begin_date option and popup menus for the other 2 options.
+* [X] Toolbar scroll effect using CoordinatorLayout.
 
 ## Video Walkthrough
 

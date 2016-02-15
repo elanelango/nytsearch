@@ -30,6 +30,7 @@ public class ArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         article = Parcels.unwrap(getIntent().getParcelableExtra("article"));
+        setTitle(article.getHeadline());
         WebView webView = (WebView) findViewById(R.id.wvArticle);
         webView.setWebViewClient(new WebViewClient() {
             @Override

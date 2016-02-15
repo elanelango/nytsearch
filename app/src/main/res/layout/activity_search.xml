@@ -35,7 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:layout_scrollFlags="scroll|enterAlways" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,7 +90,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:paddingRight="6dp"
+                android:paddingEnd="6dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
