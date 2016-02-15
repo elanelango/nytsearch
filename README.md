@@ -40,13 +40,13 @@ The following **additional** features are implemented:
 * [X] Used CardView for the article items in the StaggeredGridLayout
 * [X] Used Toolbar instead of ActionBar with custom icons for filtering.
   * [X] DataPicker dialog for begin_date option and popup menus for the other 2 options.
-* [X] Toolbar scroll effect using CoordinatorLayout.a
+* [X] Toolbar scroll effect using CoordinatorLayout.
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-Please download at: https://raw.githubusercontent.com/elanelango/NYTSearch/master/demo.mp4
+Please view at: https://youtu.be/3SwhjE6ztCo
 
 GIF created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
 
