@@ -48,16 +48,22 @@ Here's a walkthrough of implemented user stories:
 
 Please view at: https://youtu.be/3SwhjE6ztCo
 
-GIF created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
+Video created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
 
 ## Notes
 
 Describe any challenges encountered while building the app.
 
+* Getting a decent look and feel of the CarView inside RecyclerView took some time.
+* Figuring out how to place the 3 custom action buttons in the toolbar.
+
 ## Open-source libraries used
 
 - [Android Async HTTP](https://github.com/loopj/android-async-http) - Simple asynchronous HTTP requests with JSON parsing
-- [Picasso](http://square.github.io/picasso/) - Image loading and caching library for Android
+- [Glide](https://github.com/bumptech/glide) - Image loading and caching library for Android
+- [Gson](https://github.com/google/gson) - A Java serialization library that can convert Java Objects into JSON and back.
+- [ButterKnife](http://jakewharton.github.io/butterknife/) - Field and method binding for Android views
+- [Parceler](https://github.com/johncarl81/parceler) - Android Parcelables made easy through code generation.
 
 ## License
 
