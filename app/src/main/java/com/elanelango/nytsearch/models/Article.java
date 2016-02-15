@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ import java.util.List;
 /**
  * Created by eelango on 2/12/16.
  */
-public class Article implements Serializable {
+@Parcel
+public class Article {
 
-    String webUrl;
-    Headline headline;
+    public String webUrl;
+    public Headline headline;
 
-    ArrayList<Media> multimedia;
+    public ArrayList<Media> multimedia;
 
     public Article() {
         multimedia = new ArrayList<>();

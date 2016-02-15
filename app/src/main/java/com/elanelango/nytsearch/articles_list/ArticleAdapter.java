@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.elanelango.nytsearch.R;
 import com.elanelango.nytsearch.article_page.ArticleActivity;
 import com.elanelango.nytsearch.models.Article;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
             tvHeadline.setText(article.getHeadline());
             String thumbnail = article.getThumbnail();
             if (!TextUtils.isEmpty(thumbnail)) {
-                Picasso.with(context)
+                Glide.with((SearchActivity)context)
                         .load(thumbnail)
                         .into(ivThumbnail);
             } else {
@@ -65,7 +68,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ViewHold
         @Override
         public void onClick(View v) {
             Intent i = new Intent(context, ArticleActivity.class);
-            i.putExtra("article", article);
+            i.putExtra("article", Parcels.wrap(article));
             context.startActivity(i);
         }
     }
