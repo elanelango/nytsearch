@@ -2,7 +2,7 @@
 
 **NYTSearch** is an android app that allows a user to search for images on web using simple filters. The app utilizes [New York Times Search API](http://developer.nytimes.com/docs/read/article_search_api_v2).
 
-Time spent: **1.5** hours spent in total
+Time spent: **20** hours spent in total
 
 ## User Stories
 
@@ -46,7 +46,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<video src='https://raw.githubusercontent.com/elanelango/NYTSearch/master/demo.mp4' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+Please download at: https://raw.githubusercontent.com/elanelango/NYTSearch/master/demo.mp4
 
 GIF created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
 
