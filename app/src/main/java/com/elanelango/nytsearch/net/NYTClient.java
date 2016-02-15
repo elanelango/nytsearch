@@ -10,6 +10,10 @@ import android.widget.Toast;
 import com.elanelango.nytsearch.R;
 import com.elanelango.nytsearch.articles_list.SearchActivity;
 import com.elanelango.nytsearch.models.Article;
+import com.elanelango.nytsearch.models.NYTResponse;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -41,11 +45,17 @@ public class NYTClient {
     private AsyncHttpClient client;
     private static String clientKey;
     private Context context;
+    Gson gson;
 
     public NYTClient(Context context) {
         this.context = context;
         this.client = new AsyncHttpClient();
         clientKey = context.getString(R.string.client_key);
+
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        gson = gsonBuilder.create();
+
     }
 
     // Method for accessing the search API
@@ -82,6 +92,7 @@ public class NYTClient {
             newsDeskValues = "news_desk:(" + newsDeskValues + ")";
             params.put("fq", newsDeskValues);
         }
+
         Log.d("DEBUG", params.toString());
 
         if (!isNetworkAvailable() || !isOnline()) {
@@ -92,29 +103,25 @@ public class NYTClient {
         client.get(SEARCH_URL, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                Log.d("DEBUG", response.toString());
-                JSONArray articleJSONResults = null;
                 try {
-                    articleJSONResults = response.getJSONObject("response").getJSONArray("docs");
-                    articleHandler.onNewArticles(Article.fromJSONArray(articleJSONResults));
-//                Article article = new Article("http://www.twitter.com", "Twitter Website", "http://blog.room34.com/wp-content/uploads/underdog/logo.thumbnail.png");
-//                ArrayList<Article> articles = new ArrayList<Article>();
-//                articles.add(article);
-//                    articleHandler.onNewArticles(articles);
+                    JSONObject responseJSON = response.getJSONObject("response");
+                    NYTResponse nytResponse = gson.fromJson(responseJSON.toString(), NYTResponse.class);
+                    articleHandler.onNewArticles(nytResponse.articles);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 throwable.printStackTrace();
+                Toast.makeText(context, "Unexpected issue while retrieving articles. Please try again later.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 throwable.printStackTrace();
+                Toast.makeText(context, "Unexpected issue while retrieving articles. Please try again later.", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -130,10 +137,13 @@ public class NYTClient {
         Runtime runtime = Runtime.getRuntime();
         try {
             Process ipProcess = runtime.exec("/system/bin/ping -c 1 8.8.8.8");
-            int     exitValue = ipProcess.waitFor();
+            int exitValue = ipProcess.waitFor();
             return (exitValue == 0);
-        } catch (IOException e)          { e.printStackTrace(); }
-        catch (InterruptedException e) { e.printStackTrace(); }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
