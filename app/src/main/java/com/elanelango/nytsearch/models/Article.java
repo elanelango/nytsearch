@@ -27,6 +27,11 @@ public class Article implements Serializable {
         return thumbnail;
     }
 
+    public Article(String webUrl, String headline, String thumbnail) {
+        this.webUrl = webUrl;
+        this.headline = headline;
+        this.thumbnail = thumbnail;
+    }
     public Article(JSONObject jsonObject) {
         try {
             this.webUrl = jsonObject.getString("web_url");

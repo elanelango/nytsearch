@@ -88,6 +88,10 @@ public class NYTClient {
                 try {
                     articleJSONResults = response.getJSONObject("response").getJSONArray("docs");
                     articleHandler.onNewArticles(Article.fromJSONArray(articleJSONResults));
+//                Article article = new Article("http://www.twitter.com", "Twitter Website", "http://blog.room34.com/wp-content/uploads/underdog/logo.thumbnail.png");
+//                ArrayList<Article> articles = new ArrayList<Article>();
+//                articles.add(article);
+//                    articleHandler.onNewArticles(articles);
                     Log.d("DEBUG", resArticles.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
