@@ -19,6 +19,7 @@ public class Article {
 
     public String webUrl;
     public Headline headline;
+    public String snippet;
 
     public ArrayList<Media> multimedia;
 
@@ -32,6 +33,14 @@ public class Article {
 
     public String getHeadline() {
         return headline.main;
+    }
+
+    public boolean hasThumbnail() {
+        return multimedia.size() > 0;
+    }
+
+    public String getSnippet() {
+        return snippet;
     }
 
     public String getThumbnail() {
