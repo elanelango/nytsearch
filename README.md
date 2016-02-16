@@ -46,7 +46,10 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-Please view at: https://youtu.be/3SwhjE6ztCo
+![GIF Demo](https://www.amazon.com/clouddrive/share/Dkr4ivBBRxnXJYsd8yTs0FILnJtvb9zDUItXhmYzOaa?ref_=cd_ph_share_link_copy)
+
+GIF: https://raw.githubusercontent.com/elanelango/NYTSearch/master/demo.gif
+Video: https://youtu.be/3SwhjE6ztCo
 
 Video created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
 
