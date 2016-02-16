@@ -48,7 +48,7 @@ Here's a walkthrough of implemented user stories:
 
 Video: https://youtu.be/3SwhjE6ztCo
 
-![GIF demo](https://raw.githubusercontent.com/elanelango/NYTSearch/demo.gif)
+![GIF demo](https://github.com/elanelango/nytsearch/raw/master/demo.gif)
 
 Video created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
 
