@@ -46,8 +46,6 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![GIF Demo](https://content-na.drive.amazonaws.com/cdproxy/templink/hpIaYJNbjNGI5vEwt3rQWiB3mHZ2ZP6shriLegc3WuQLAYspN)
-
 Video: https://youtu.be/3SwhjE6ztCo
 
 Video created with [AndroidTool](https://github.com/mortenjust/androidtool-mac).
